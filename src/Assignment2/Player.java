@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -77,7 +78,7 @@ public class Player
         Thread.sleep(1000);
     }
 
-    public void loadPlayer(String name, Game game) throws InterruptedException
+    public void loadPlayer(String name) throws InterruptedException
     {
         FileReader fr = null;
         File file = new File("./" + name + ".txt");
@@ -86,12 +87,10 @@ public class Player
         if (!file.exists())
         {
             //If the file isn't there it lets you know it doen't exist
-            System.out.println("Hero is not found.");
-            System.out.println("Please try again");
-            Thread.sleep(1000);
-            game.load = false;
+            JOptionPane.showMessageDialog(null, "Hero does not exist.\n Try again.", "Error", JOptionPane.WARNING_MESSAGE);
+            
             //Takes you back to the new game/load screen
-            game.gameStart();
+            
         }
         else
         {
@@ -118,7 +117,7 @@ public class Player
                 this.exp = Integer.parseInt(br.readLine());
                 this.lvl = Integer.parseInt(br.readLine());
                 System.out.println("Load Successful!");
-                game.load = true;
+                
             }
             catch (IOException ex)
             {

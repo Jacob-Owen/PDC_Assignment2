@@ -44,7 +44,7 @@ public class Game
         //makes a dummy player to write the stats to
         this.player = new Player("");
         //loads in the players stats
-        this.player.loadPlayer(name, this);
+        this.player.loadPlayer(name);
         if (this.load == true)//Checks if the load is sucessful
         {
             System.out.println("\nWelcome back " + name + ". Your journey continues.\n");

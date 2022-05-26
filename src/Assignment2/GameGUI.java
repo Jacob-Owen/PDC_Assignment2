@@ -185,6 +185,14 @@ public class GameGUI extends JPanel implements ActionListener
                 {
                     Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                try
+                {
+                    this.battleStart();
+                }
+                catch (InterruptedException ex)
+                {
+                    Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (source == yes)

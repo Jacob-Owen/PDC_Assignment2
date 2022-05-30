@@ -20,14 +20,14 @@ public class Giant extends Enemy
     }
 
     @Override
-    public void magicCry()
+    public String magicCry()
     {
-        System.out.println("BOOM!\n"); //The Cry when Magic is used
+        return ("BOOM!\n"); //The Cry when Magic is used
     }
     
     @Override
-    public void battleCry()
+    public String battleCry()
     {
-        System.out.println("WHAM!\n"); //The Cry when Attack is used
+        return ("WHAM!\n"); //The Cry when Attack is used
     }
 }

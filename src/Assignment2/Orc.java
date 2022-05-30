@@ -22,9 +22,9 @@ public class Orc extends Enemy
     }
     
     @Override
-    public void battleCry()
+    public String battleCry()
     {
-        System.out.println("ARRRRRRGGGGGH!\n"); //The Cry when Attack is used
+        return ("ARRRRRRGGGGGH!\n"); //The Cry when Attack is used
     }
 
 }

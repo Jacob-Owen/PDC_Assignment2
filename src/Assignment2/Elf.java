@@ -21,14 +21,14 @@ public class Elf extends Enemy
 
     
      @Override
-    public void magicCry()
+    public String magicCry()
     {
-        System.out.println("Wooooosh!\n"); //The Cry when Magic is used
+        return ("Wooooosh!\n"); //The Cry when Magic is used
     }
     
     @Override
-    public void battleCry()
+    public String battleCry()
     {
-        System.out.println("Hu Yah!\n"); //The Cry when Attack is used
+        return ("Hu Yah!\n"); //The Cry when Attack is used
     }
 }

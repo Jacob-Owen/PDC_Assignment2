@@ -100,14 +100,14 @@ public class Enemy
     }
     
     //Cry that is used when using a Attack
-    public void battleCry()
+    public String battleCry()
     {
-        System.out.println("\n");
+        return "";
     }
 
     //Cry that is used when using a Magic spell
-    public void magicCry()
+    public String magicCry()
     {
-        System.out.println("\n");
+        return "";
     }
 }

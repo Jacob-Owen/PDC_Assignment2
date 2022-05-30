@@ -205,13 +205,13 @@ public class Game
         //Starts the Players turn
         PlayerBattle pBattle = new PlayerBattle();
 
-        pBattle.playerBattle(this, choice);
+        
 
         if (this.enemy.getHp() > 0 && this.run == false)//Checks if the Enemys HP is 0 or if the Player has ran
         {
             //Starts the Enemy battle
             EnemyBattle eBattle = new EnemyBattle();
-            eBattle.enemyBattle(this);
+            //eBattle.enemyBattle(this);
         }
     }
 

@@ -21,15 +21,15 @@ public class Wizard extends Enemy
     }
     
     @Override
-    public void magicCry()
+    public String magicCry()
     {
-        System.out.println("Wuzzzzzrt!\n"); //The Cry when Magic is used
+        return("Wuzzzzzrt!\n"); //The Cry when Magic is used
     }
 
     @Override
-    public void battleCry()
+    public String battleCry()
     {
-        System.out.println("Zip Zap!\n"); //The Cry when Attack is used
+        return("Zip Zap!\n"); //The Cry when Attack is used
     }
     
 }

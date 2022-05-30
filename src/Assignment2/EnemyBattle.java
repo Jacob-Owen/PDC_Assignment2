@@ -30,7 +30,7 @@ public class EnemyBattle extends Battle
         return magicAttack;
     }
 
-    public void enemyBattle(Game game) throws InterruptedException
+    public void enemyBattle(GameGUI game) 
     {
         Random rand = new Random();
         //Randomly chooses what action the Enemy should perform
@@ -44,7 +44,7 @@ public class EnemyBattle extends Battle
             for (int i = 0; i < 5; ++i)
             {
                 System.out.print("=");
-                Thread.sleep(500);
+                
             }
             System.out.println("\n");
             //Calculates the damage delt.
@@ -55,30 +55,26 @@ public class EnemyBattle extends Battle
             if (super.getMiss() == 1 || attackOutput <= 0)//Enemy misses if their attack power is 0 or they roll a miss
             {
                 System.out.println("The " + game.enemy.getName() + " misses!!!\n");
-                Thread.sleep(1000);
+                
             }
             else
             {
                 //Attack is sucessful.
                 if (attackOutput > 0)
                 {
-                    game.enemy.battleCry();//Enemy does their battle cry
-                    Thread.sleep(1000);
+                    System.out.println(game.enemy.battleCry());//Enemy does their battle cry
+                    
                     System.out.println("The " + game.enemy.getName() + " hits for " + attackOutput + "!\n");
-                    Thread.sleep(1000);
+                    
                     game.player.setHp(game.player.getHp() - attackOutput);
                 }
                 //Checks to see if your HP is below 0.
                 if (game.player.getHp() < 0)
                 {
-                    System.out.println(game.player.getName() + "'s HP is 0\n");
+                    game.playerHP.setText("HP: 0");
                 }
-                else
-                {
-                    //Displays your remaining health.
-                    System.out.println("Your remaining HP is " + game.player.getHp() + "\n");
-                }
-                Thread.sleep(1000);
+                
+                
             }
 
         }
@@ -89,7 +85,7 @@ public class EnemyBattle extends Battle
             for (int i = 0; i < 5; ++i)
             {
                 System.out.print("=");
-                Thread.sleep(500);
+                
             }
             System.out.println("\n");
 
@@ -108,28 +104,24 @@ public class EnemyBattle extends Battle
             if (super.getMiss() == 1 || attackOutput <= 0)//Enemy misses if their attack power is 0 or they roll a miss
             {
                 System.out.println(game.enemy.getName() + " misses!!!\n");
-                Thread.sleep(1000);
+                
             }
             else
             {
                 if (attackOutput > 0)
                 {
-                    game.enemy.magicCry(); //Enemy does their battle cry
-                    Thread.sleep(1000);
+                    System.out.println(game.enemy.magicCry()); //Enemy does their battle cry
+                    
                     System.out.println("The " + game.enemy.getName() + " hit for " + attackOutput + "!\n");
-                    Thread.sleep(1000);
+                    
                     game.player.setHp(game.player.getHp() - attackOutput);
                     //Checks to see if your HP is below 0
                     if (game.player.getHp() < 0)
                     {
-                        System.out.println(game.player.getName() + "'s HP is 0\n");
+                        game.player.setHp(0);
                     }
-                    else
-                    {
-                        //Displays your remaining health
-                        System.out.println("Your remaining HP is " + game.player.getHp() + "\n");
-                    }
-                    Thread.sleep(1000);
+                   
+                    
                 }
             }
 
@@ -138,7 +130,7 @@ public class EnemyBattle extends Battle
         else
         {
             System.out.println("The " + game.enemy.getName() + " stands there.\n");
-            Thread.sleep(1000);
+            
         }
     }
 }

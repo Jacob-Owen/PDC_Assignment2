@@ -115,12 +115,12 @@ public class Player
                 this.def = Integer.parseInt(br.readLine());
                 this.exp = Integer.parseInt(br.readLine());
                 this.lvl = Integer.parseInt(br.readLine());
-                System.out.println("Load Successful!");
+                JOptionPane.showMessageDialog(null, "Load Successful", "LOAD", JOptionPane.INFORMATION_MESSAGE);
                 
             }
             catch (IOException ex)
             {
-                System.out.println("Load failed");
+                JOptionPane.showMessageDialog(null, "Load Failed", "ERROR", JOptionPane.WARNING_MESSAGE);
                 System.out.println(ex.getMessage());
             }
             try

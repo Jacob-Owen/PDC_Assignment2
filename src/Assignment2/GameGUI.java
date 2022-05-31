@@ -538,7 +538,7 @@ public class GameGUI extends JPanel implements ActionListener
         {
 //            System.out.println("GAME OVER");
 //            System.out.println("Try again next time!");
-            player.setHp(0);
+            playerHP = new JLabel("HP: 0");
             JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
             return false;

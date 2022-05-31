@@ -54,9 +54,9 @@ public class GameGUI extends JPanel implements ActionListener
     public GameGUI()
     {
         initWindow();
-        initButton();       
+        initButton();
         initPanel();
-        
+
         window.setVisible(true);
         pBattle = new PlayerBattle();
         eBattle = new EnemyBattle();
@@ -148,55 +148,55 @@ public class GameGUI extends JPanel implements ActionListener
         run.setFont(btnFont);
         run.setForeground(Color.WHITE);
         run.setBounds(550, 400, 200, 75);
-        
+
         next.setBackground(Color.DARK_GRAY);
         next.setBorder(new LineBorder(Color.CYAN, 5));
         next.setFont(btnFont);
         next.setForeground(Color.WHITE);
         next.setBounds(300, 400, 200, 75);
-        
+
         window.add(newGame);
         window.add(loadGame);
         window.add(attack);
         window.add(magic);
         window.add(run);
-        window.add(next);      
+        window.add(next);
     }
-    
+
     public void initPanel()
     {
         title = new JLabel("MONSTER SLAYER");
         title.setFont(labelFont);
         title.setForeground(Color.WHITE);
-        
+
         saveLabel = new JLabel("Do you wish to save?");
         saveLabel.setForeground(Color.WHITE);
         saveLabel.setFont(labelFont);
-        
+
         quitLabel = new JLabel("Do you wish to Quit?");
         quitLabel.setForeground(Color.WHITE);
         quitLabel.setFont(labelFont);
-        
+
         titlePanel = new JPanel();
         titlePanel.setBounds(150, 100, 500, 100);
         titlePanel.setBackground(Color.DARK_GRAY);
         titlePanel.setLayout(new GridBagLayout());
         titlePanel.add(title);
-              
+
         savePanel = new JPanel();
         savePanel.setBounds(200, 200, 400, 50);
         savePanel.setBackground(Color.BLACK);
         savePanel.setLayout(new GridBagLayout());
         savePanel.add(saveLabel);
-        
+
         quitPanel = new JPanel();
         quitPanel.setBounds(200, 200, 400, 50);
         quitPanel.setBackground(Color.BLACK);
         quitPanel.setLayout(new GridBagLayout());
         quitPanel.add(quitLabel);
-        
-        window.add(titlePanel);       
-         
+
+        window.add(titlePanel);
+
         window.add(saveYes);
         window.add(saveNo);
         window.add(savePanel);
@@ -216,14 +216,14 @@ public class GameGUI extends JPanel implements ActionListener
             //this.setBattleButtonVisible(false);
             textArea.setText("");
             pBattle.playerAttack(this);
-            if(this.checkEnemyHealth() == true)
+            if (this.checkEnemyHealth() == true)
             {
                 eBattle.enemyBattle(this);
             }
             playerHP.setText("HP: " + player.getHp());
-            if(this.checkPlayerHealth())
+            if (this.checkPlayerHealth())
             {
-                
+
             }
             //this.setBattleButtonVisible(true);
         }
@@ -233,14 +233,14 @@ public class GameGUI extends JPanel implements ActionListener
             textArea.setText("");
             pBattle.playerMagic(this);
             playerMP.setText("MP: " + player.getMp());
-            if(this.checkEnemyHealth()== true)
+            if (this.checkEnemyHealth() == true)
             {
                 eBattle.enemyBattle(this);
-            }           
+            }
             playerHP.setText("HP: " + player.getHp());
-            if(this.checkPlayerHealth())
+            if (this.checkPlayerHealth())
             {
-                
+
             }
             //this.setBattleButtonVisible(true);
         }
@@ -254,6 +254,11 @@ public class GameGUI extends JPanel implements ActionListener
             else
             {
                 eBattle.enemyBattle(this);
+                playerHP.setText("HP: " + player.getHp());
+                if (this.checkPlayerHealth())
+                {
+
+                }
             }
         }
 
@@ -337,12 +342,12 @@ public class GameGUI extends JPanel implements ActionListener
             save.saveGame(this.player);
             this.quitScreen();
         }
-        
+
         if (source == saveNo)
         {
             this.quitScreen();
         }
-        
+
         if (source == quitYes)
         {
             if (JOptionPane.showConfirmDialog(window, "Are you sure you want to quit?", "Warning", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
@@ -354,13 +359,13 @@ public class GameGUI extends JPanel implements ActionListener
                 this.battleStart();
             }
         }
-        
+
         if (source == quitNo)
         {
             this.battleStart();
         }
-        
-        if(source == next)
+
+        if (source == next)
         {
             this.saveScreen();
         }
@@ -373,15 +378,15 @@ public class GameGUI extends JPanel implements ActionListener
         quitNo.setVisible(false);
         savePanel.setVisible(false);
         saveYes.setVisible(false);
-        saveNo.setVisible(false); 
+        saveNo.setVisible(false);
         attack.setVisible(false);
         magic.setVisible(false);
         run.setVisible(false);
         next.setVisible(false);
-        
+
         titlePanel.setVisible(true);
         newGame.setVisible(true);
-        loadGame.setVisible(true); 
+        loadGame.setVisible(true);
     }
 
     public void battleScreen()
@@ -396,11 +401,11 @@ public class GameGUI extends JPanel implements ActionListener
         saveYes.setVisible(false);
         saveNo.setVisible(false);
         next.setVisible(false);
-        
+
         playerName = new JLabel(player.getName());
         playerName.setForeground(Color.ORANGE);
         playerName.setFont(btnFont);
-        
+
         playerHP = new JLabel("HP: " + player.getHp());
         playerHP.setForeground(Color.WHITE);
         playerHP.setFont(btnFont);
@@ -408,39 +413,38 @@ public class GameGUI extends JPanel implements ActionListener
         playerMP = new JLabel("MP: " + player.getMp());
         playerMP.setForeground(Color.WHITE);
         playerMP.setFont(btnFont);
-        
+
         namePanel = new JPanel();
         namePanel.setBounds(200, 10, 400, 50);
         namePanel.setBackground(Color.BLACK);
         namePanel.setLayout(new GridBagLayout());
         namePanel.add(playerName);
-        
+
         hpPanel = new JPanel();
         hpPanel.setBounds(30, 200, 100, 50);
         hpPanel.setBackground(Color.DARK_GRAY);
         hpPanel.add(playerHP);
-        
+
         mpPanel = new JPanel();
         mpPanel.setBounds(670, 200, 100, 50);
         mpPanel.setBackground(Color.DARK_GRAY);
         mpPanel.add(playerMP);
-        
+
         textArea = new JTextArea(10, 10);
         textArea.setText("");
         textArea.setBounds(150, 100, 500, 250);
         textArea.setBackground(Color.DARK_GRAY);
         textArea.setForeground(Color.WHITE);
-        
+
         PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
         System.setOut(ps);
-        
+
         //JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        
         window.add(textArea);
         window.add(namePanel);
         window.add(hpPanel);
-        window.add(mpPanel); 
-        
+        window.add(mpPanel);
+
         textArea.setVisible(true);
         attack.setVisible(true);
         magic.setVisible(true);
@@ -467,7 +471,7 @@ public class GameGUI extends JPanel implements ActionListener
         saveYes.setVisible(true);
         saveNo.setVisible(true);
     }
-    
+
     public void quitScreen()
     {
         savePanel.setVisible(false);
@@ -535,7 +539,7 @@ public class GameGUI extends JPanel implements ActionListener
 //            System.out.println("GAME OVER");
 //            System.out.println("Try again next time!");
             player.setHp(0);
-            JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);           
+            JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
             return false;
         }
@@ -564,7 +568,7 @@ public class GameGUI extends JPanel implements ActionListener
         magic.setVisible(false);
         run.setVisible(false);
         next.setVisible(true);
-        
+
         System.out.println("The Monster is defeted! \n");
 
         //Incresses the Players EXP 
@@ -584,8 +588,7 @@ public class GameGUI extends JPanel implements ActionListener
             System.out.println("You have " + ((this.player.getLvl() * 100) - this.player.getExp()) + " EXP before next level up\n");
 
         }
-        
-        
+
         //Generates a random event to happen.
         //RandomEvent event = new RandomEvent();
         //event.calculateRandomEvent(this.player);

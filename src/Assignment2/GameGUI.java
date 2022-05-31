@@ -40,7 +40,7 @@ public class GameGUI extends JPanel implements ActionListener
 
     //private final Timer timer;
     public JFrame window;
-    public JButton attack, magic, run, newGame, loadGame, saveYes, saveNo, quitYes, quitNo;
+    public JButton attack, magic, run, newGame, loadGame, saveYes, saveNo, quitYes, quitNo, next;
     public JLabel playerName, playerHP, playerMP, title, saveLabel, quitLabel;
     public JTextArea textArea;
     public JPanel titlePanel, savePanel, quitPanel, hpPanel, mpPanel, namePanel;
@@ -82,6 +82,7 @@ public class GameGUI extends JPanel implements ActionListener
         saveNo = new JButton("NO");
         quitYes = new JButton("YES");
         quitNo = new JButton("NO");
+        next = new JButton(">");
 
         attack.addActionListener(this);
         magic.addActionListener(this);
@@ -92,6 +93,7 @@ public class GameGUI extends JPanel implements ActionListener
         saveNo.addActionListener(this);
         quitYes.addActionListener(this);
         quitNo.addActionListener(this);
+        next.addActionListener(this);
 
         newGame.setBackground(Color.DARK_GRAY);
         newGame.setBorder(new LineBorder(Color.CYAN, 5));
@@ -147,13 +149,18 @@ public class GameGUI extends JPanel implements ActionListener
         run.setForeground(Color.WHITE);
         run.setBounds(550, 400, 200, 75);
         
+        next.setBackground(Color.DARK_GRAY);
+        next.setBorder(new LineBorder(Color.CYAN, 5));
+        next.setFont(btnFont);
+        next.setForeground(Color.WHITE);
+        next.setBounds(300, 400, 200, 75);
+        
         window.add(newGame);
         window.add(loadGame);
         window.add(attack);
         window.add(magic);
         window.add(run);
-        
-        
+        window.add(next);      
     }
     
     public void initPanel()
@@ -170,24 +177,12 @@ public class GameGUI extends JPanel implements ActionListener
         quitLabel.setForeground(Color.WHITE);
         quitLabel.setFont(labelFont);
         
-        textArea = new JTextArea(10, 10);
-        textArea.setBounds(150, 100, 500, 250);
-        textArea.setBackground(Color.DARK_GRAY);
-        textArea.setForeground(Color.WHITE);
-        
-        PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
-        System.setOut(ps);
-        window.add(textArea);
-        //JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        
         titlePanel = new JPanel();
         titlePanel.setBounds(150, 100, 500, 100);
         titlePanel.setBackground(Color.DARK_GRAY);
         titlePanel.setLayout(new GridBagLayout());
         titlePanel.add(title);
-        
-        
-        
+              
         savePanel = new JPanel();
         savePanel.setBounds(200, 200, 400, 50);
         savePanel.setBackground(Color.BLACK);
@@ -221,10 +216,15 @@ public class GameGUI extends JPanel implements ActionListener
             //this.setBattleButtonVisible(false);
             textArea.setText("");
             pBattle.playerAttack(this);
-            this.checkEnemyHealth();
-            eBattle.enemyBattle(this);
+            if(this.checkEnemyHealth() == true)
+            {
+                eBattle.enemyBattle(this);
+            }
             playerHP.setText("HP: " + player.getHp());
-            this.checkPlayerHealth();
+            if(this.checkPlayerHealth())
+            {
+                
+            }
             //this.setBattleButtonVisible(true);
         }
         if (source == magic)
@@ -233,10 +233,15 @@ public class GameGUI extends JPanel implements ActionListener
             textArea.setText("");
             pBattle.playerMagic(this);
             playerMP.setText("MP: " + player.getMp());
-            this.checkEnemyHealth();
-            eBattle.enemyBattle(this);
+            if(this.checkEnemyHealth()== true)
+            {
+                eBattle.enemyBattle(this);
+            }           
             playerHP.setText("HP: " + player.getHp());
-            this.checkPlayerHealth();
+            if(this.checkPlayerHealth())
+            {
+                
+            }
             //this.setBattleButtonVisible(true);
         }
         if (source == run)
@@ -354,6 +359,11 @@ public class GameGUI extends JPanel implements ActionListener
         {
             this.battleStart();
         }
+        
+        if(source == next)
+        {
+            this.saveScreen();
+        }
     }
 
     public void titleScreen()
@@ -364,10 +374,10 @@ public class GameGUI extends JPanel implements ActionListener
         savePanel.setVisible(false);
         saveYes.setVisible(false);
         saveNo.setVisible(false); 
-        textArea.setVisible(false);
         attack.setVisible(false);
         magic.setVisible(false);
         run.setVisible(false);
+        next.setVisible(false);
         
         titlePanel.setVisible(true);
         newGame.setVisible(true);
@@ -384,7 +394,8 @@ public class GameGUI extends JPanel implements ActionListener
         quitNo.setVisible(false);
         savePanel.setVisible(false);
         saveYes.setVisible(false);
-        saveNo.setVisible(false);  
+        saveNo.setVisible(false);
+        next.setVisible(false);
         
         playerName = new JLabel(player.getName());
         playerName.setForeground(Color.ORANGE);
@@ -414,6 +425,18 @@ public class GameGUI extends JPanel implements ActionListener
         mpPanel.setBackground(Color.DARK_GRAY);
         mpPanel.add(playerMP);
         
+        textArea = new JTextArea(10, 10);
+        textArea.setText("");
+        textArea.setBounds(150, 100, 500, 250);
+        textArea.setBackground(Color.DARK_GRAY);
+        textArea.setForeground(Color.WHITE);
+        
+        PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
+        System.setOut(ps);
+        
+        //JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        
+        window.add(textArea);
         window.add(namePanel);
         window.add(hpPanel);
         window.add(mpPanel); 
@@ -431,10 +454,14 @@ public class GameGUI extends JPanel implements ActionListener
 
     public void saveScreen()
     {
+        next.setVisible(false);
         attack.setVisible(false);
         magic.setVisible(false);
         run.setVisible(false);
         textArea.setVisible(false);
+        hpPanel.setVisible(false);
+        mpPanel.setVisible(false);
+        namePanel.setVisible(false);
 
         savePanel.setVisible(true);
         saveYes.setVisible(true);
@@ -501,27 +528,43 @@ public class GameGUI extends JPanel implements ActionListener
         System.out.println("What do you do?");
     }
 
-    public void checkPlayerHealth()
+    public boolean checkPlayerHealth()
     {
         if (player.getHp() <= 0)
         {
 //            System.out.println("GAME OVER");
 //            System.out.println("Try again next time!");
-            JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
+            player.setHp(0);
+            JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);           
             System.exit(0);
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
-    public void checkEnemyHealth()
+    public boolean checkEnemyHealth()
     {
         if (enemy.getHp() <= 0)
         {
             this.battleEnd();
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 
     public void battleEnd()
     {
+        attack.setVisible(false);
+        magic.setVisible(false);
+        run.setVisible(false);
+        next.setVisible(true);
+        
         System.out.println("The Monster is defeted! \n");
 
         //Incresses the Players EXP 
@@ -542,7 +585,7 @@ public class GameGUI extends JPanel implements ActionListener
 
         }
         
-        this.saveScreen();
+        
         //Generates a random event to happen.
         //RandomEvent event = new RandomEvent();
         //event.calculateRandomEvent(this.player);

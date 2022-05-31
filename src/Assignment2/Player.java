@@ -50,11 +50,10 @@ public class Player
         this.maxHp = this.hp;
     }
 
-    public void levelUp() throws InterruptedException
+    public void levelUp() 
     {
         System.out.println("LEVEL UP!!!!\n");
-        Thread.sleep(1000);
-
+        
         //Incresses the level
         ++this.lvl;
 
@@ -75,7 +74,7 @@ public class Player
 
         //Displays the players new level
         System.out.println("You are now level " + (this.lvl) + "!!\n");
-        Thread.sleep(1000);
+        
     }
 
     public void loadPlayer(String name) throws InterruptedException

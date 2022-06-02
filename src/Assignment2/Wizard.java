@@ -4,6 +4,10 @@
  */
 package Assignment2;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jacob
@@ -12,12 +16,20 @@ package Assignment2;
 public class Wizard extends Enemy
 {
     
-    public Wizard()
+    public Wizard(Database db)
     {
         
         super.setName("Wizard"); //Sets the name
         super.setHp(super.getHp()-10); //Decresses the base HP
         super.setMp(super.getMp()+10); //Incresses the base MP
+        try
+        {
+            super.writeEnemy(db);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Elf.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

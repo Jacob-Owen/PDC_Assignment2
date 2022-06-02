@@ -87,7 +87,7 @@ public class EnemyBattle extends Battle
                 System.out.print("=");
                 
             }
-            System.out.println("\n");
+            System.out.print("\n");
 
             //Calculates the strength of the Magic attack
             int attackOutput = this.calculateEnemyMagic(game.player, game.enemy);
@@ -95,7 +95,7 @@ public class EnemyBattle extends Battle
             //Checks if the Enemy is out of MP
             if (game.enemy.getMp() <= 0)
             {
-                System.out.println("\nThe" + game.enemy.getName() + " has run out of MP");
+                System.out.println("\nThe" + game.enemy.getName() + " has run out of MP\n");
                 attackOutput = 0;
             }
 

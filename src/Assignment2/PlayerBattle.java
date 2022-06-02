@@ -29,7 +29,7 @@ public class PlayerBattle extends Battle
 
     public void playerAttack(GameGUI game)
     {
-        System.out.println("You attack!");
+        System.out.println("You attack!\n");
 
         //Calculates the attacks's damage
         int attackOutput = this.calculatePlayerAttack(game.player, game.enemy);
@@ -38,12 +38,12 @@ public class PlayerBattle extends Battle
         super.rollMiss();
         if (super.getMiss() == 1 || attackOutput <= 0)
         {
-            System.out.println("\nYou miss!!!\n");
+            System.out.println("You miss!!!\n");
 
         }
         else
         {
-            System.out.println("\nHIT!\n");
+            System.out.println("HIT!\n");
 
             System.out.println("You hit for " + attackOutput + "!\n");
 
@@ -73,12 +73,13 @@ public class PlayerBattle extends Battle
             System.out.print("=");
 
         }
+        System.out.print("\n");
         int attackOutput = 0;
 
         //Checks if you are out of MP
         if (game.player.getMp() <= 0)
         {
-            System.out.println("\nYou are out of MP!");
+            System.out.println("You are out of MP!");
         }
         else
         {
@@ -90,14 +91,14 @@ public class PlayerBattle extends Battle
         super.rollMiss();
         if (this.getMiss() == 1 || attackOutput <= 0)
         {
-            System.out.println("\nYou miss!!!\n");
+            System.out.println("You miss!!!\n");
 
         }
         else
         {
             if (attackOutput > 0)
             {
-                System.out.println("\nHIT!\n");
+                System.out.println("HIT!\n");
 
                 //Displays the dammage delt
                 System.out.println("You hit for " + attackOutput + "!\n");
@@ -126,7 +127,7 @@ public class PlayerBattle extends Battle
             System.out.print("=");
 
         }
-        System.out.println("\n");
+        System.out.print("\n");
 
         //Calculates if the Player is able to run from battle
         super.rollRun();

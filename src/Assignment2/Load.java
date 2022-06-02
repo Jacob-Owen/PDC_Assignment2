@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,17 +16,17 @@ import java.sql.Statement;
  */
 public class Load
 {
+
     private Connection conn;
     private Statement statement;
+    private boolean load;
 
     public Load()
     {
-        
+        load = false;
     }
-    
-    
-     
-     public void loadGame(String name, Player p, Database db) throws SQLException
+
+    public boolean loadGame(String name, Player p, Database db) throws SQLException
     {
         conn = db.getConnection();
         this.statement = conn.createStatement();
@@ -38,8 +39,7 @@ public class Load
         {
             System.out.println(ex.getMessage());
         }
-
-        while (rs.next())
+        if (rs.next())
         {
             p.setName(rs.getString("NAME"));
             p.setHp(rs.getInt("HP"));
@@ -48,7 +48,16 @@ public class Load
             p.setDef(rs.getInt("DEFENCE"));
             p.setExp(rs.getInt("EXP"));
             p.setLvl(rs.getInt("LEVEL"));
-        }
+            p.setMaxHp(rs.getInt("MAXHP"));
 
+            JOptionPane.showMessageDialog(null, "Load Successful", "Load", JOptionPane.INFORMATION_MESSAGE);
+            load = true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Player does not exist.\nTry Again", "SAVE", JOptionPane.WARNING_MESSAGE);
+            load = false;
+        }
+        return load;
     }
 }

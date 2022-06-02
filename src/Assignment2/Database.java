@@ -135,7 +135,7 @@ public class Database
             // Table does not exist
             else
             {
-                this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, MAXMP INT, SCORE INT)");
+                this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, SCORE INT)");
             }
             // Checks if "ENEMY" table is already there
             table = dbm.getTables(null, null, "ENEMY", null);

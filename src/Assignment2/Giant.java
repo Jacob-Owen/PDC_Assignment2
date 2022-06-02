@@ -4,6 +4,10 @@
  */
 package Assignment2;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jacob
@@ -11,12 +15,20 @@ package Assignment2;
  */
 public class Giant extends Enemy
 {
-    public Giant()
+    public Giant(Database db)
     {
         super.setName("Giant"); //Sets the name
         super.setHp(super.getHp()+10); //Incresses the base HP
         super.setDef(super.getDef() - 1); //Incresses the base Defence
         super.setExpGain(super.getExpGain()+10); //Incresses the EXP gained 
+           try
+        {
+            super.writeEnemy(db);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Elf.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override

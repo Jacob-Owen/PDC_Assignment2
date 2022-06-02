@@ -4,6 +4,10 @@
  */
 package Assignment2;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Jacob
@@ -12,11 +16,17 @@ package Assignment2;
 public class Elf extends Enemy
 {
     
-  
-    
-    public Elf()
-    {
+    public Elf(Database db)
+    {        
         super.setName("Wood Elf"); //Sets the name
+        try
+        {
+            super.writeEnemy(db);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Elf.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

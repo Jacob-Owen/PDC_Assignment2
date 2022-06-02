@@ -4,7 +4,10 @@
  */
 package Assignment2;
 
+import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,11 +17,19 @@ import java.util.Random;
 public class Orc extends Enemy
 {
 
-    public Orc()
+    public Orc(Database db)
     {
         super.setName("Orc"); //Sets the name
         super.setMp(0); //Sets the MP to 0
         super.setAtk(super.getAtk() + 10); //Incresses the base Attack
+           try
+        {
+            super.writeEnemy(db);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Elf.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

@@ -53,8 +53,7 @@ public class GameGUI extends JPanel implements ActionListener
     public PlayerBattle pBattle;
     public EnemyBattle eBattle;
     public Database db;
-    
-    
+
     public GameGUI()
     {
         initWindow();
@@ -334,26 +333,22 @@ public class GameGUI extends JPanel implements ActionListener
                 Load load = new Load();
                 try
                 {
-                    load.loadGame(name, player, db);
+                    if (load.loadGame(name, player, db))
+                    {
+                        this.battleStart();
+                    }
                 }
                 catch (SQLException ex)
                 {
                     Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                this.battleStart();
+
             }
         }
         if (source == saveYes)
         {
             Save save = new Save(); //Saves the game
-            try
-            {
-                save.saveGame(this.player, this.db);
-            }
-            catch (SQLException ex)
-            {
-                Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            save.saveGame(this.player, this.db);
             this.quitScreen();
         }
 
@@ -440,20 +435,19 @@ public class GameGUI extends JPanel implements ActionListener
         hpPanel.add(playerHP);
 
         mpPanel = new JPanel();
-        mpPanel.setBounds(670, 200, 100, 50);
+        mpPanel.setBounds(650, 200, 100, 50);
         mpPanel.setBackground(Color.DARK_GRAY);
         mpPanel.add(playerMP);
 
         textArea = new JTextArea(10, 10);
         textArea.setText("");
-        textArea.setBounds(150, 100, 500, 250);
+        textArea.setBounds(140, 100, 500, 270);
         textArea.setBackground(Color.DARK_GRAY);
         textArea.setForeground(Color.WHITE);
 
         PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
         System.setOut(ps);
 
-        //JScrollPane scrollText = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         window.add(textArea);
         window.add(namePanel);
         window.add(hpPanel);
@@ -466,8 +460,6 @@ public class GameGUI extends JPanel implements ActionListener
         hpPanel.setVisible(true);
         mpPanel.setVisible(true);
         namePanel.setVisible(true);
-
-        window.repaint();
     }
 
     public void saveScreen()
@@ -521,26 +513,34 @@ public class GameGUI extends JPanel implements ActionListener
         {
             case 1:
             {
-                this.enemy = new Orc();
+                this.enemy = new Orc(db);
                 break;
             }
             case 2:
             {
-                this.enemy = new Wizard();
+                this.enemy = new Wizard(db);
                 break;
             }
             case 3:
             {
-                this.enemy = new Giant();
+                this.enemy = new Giant(db);
                 break;
             }
             case 4:
             {
-                this.enemy = new Elf();
+                this.enemy = new Elf(db);
                 break;
             }
-
         }
+        try
+        {
+            this.enemy.writeEnemy(db);
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         //Displays what enemy is chosen
         System.out.println("A " + this.enemy.getName() + " appears!!\n");
         System.out.println("What do you do?");
@@ -551,7 +551,7 @@ public class GameGUI extends JPanel implements ActionListener
         if (player.getHp() <= 0)
         {
             playerHP = new JLabel("HP: 0");
-            JOptionPane.showMessageDialog(window, "GAME OVER\nTry again next time!\n", "GAME OVER", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(window, "GAME OVER\nTry again next time!\nYour score was "+player.getScore(), "GAME OVER", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
             return false;
         }
@@ -581,13 +581,13 @@ public class GameGUI extends JPanel implements ActionListener
         run.setVisible(false);
         next.setVisible(true);
 
-        System.out.println("The Monster is defeted! \n");
+        System.out.println("The Monster is defeted!");
 
         //Incresses the Players EXP 
         this.player.setExp(this.player.getExp() + this.enemy.getExpGain());
         System.out.println("CONGRATULATIONS!!!!\n");
 
-        System.out.println("You gained " + this.enemy.getExpGain() + " EXP!");//Displays the EXP gained
+        System.out.println("You gained " + this.enemy.getExpGain() + " EXP!\n");//Displays the EXP gained
 
         //Checks to see if the player has enough EXP to Level up
         if (this.player.getExp() >= this.player.getLvl() * 100)
@@ -597,7 +597,7 @@ public class GameGUI extends JPanel implements ActionListener
         else
         {
             //Advises how much how much EXP is left before Level up
-            System.out.println("You have " + ((this.player.getLvl() * 100) - this.player.getExp()) + " EXP before next level up\n");
+            System.out.println("You have " + ((this.player.getLvl() * 100) - this.player.getExp()) + " EXP before next level up");
 
         }
 
@@ -610,9 +610,8 @@ public class GameGUI extends JPanel implements ActionListener
     {
 
         GameGUI gui = new GameGUI();
-        
+
         gui.titleScreen();
 
     }
-
 }

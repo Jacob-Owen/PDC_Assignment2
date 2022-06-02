@@ -51,7 +51,6 @@ public class Player
         this.exp = 0;
         this.lvl = 1;
         this.maxHp = this.hp;
-        this.maxMp =  this.mp;
         this.score = 0;
     }
 

@@ -49,14 +49,13 @@ public class EnemyBattleTest
     public void testCalculateEnemyAttack()
     {
         System.out.println("calculateEnemyAttack");
-        Player player = null;
-        Enemy enemy = null;
+        Player player = new Player("Test");
+        Enemy enemy = new Enemy();
         EnemyBattle instance = new EnemyBattle();
         int expResult = 0;
         int result = instance.calculateEnemyAttack(player, enemy);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 30);
+        
     }
 
     /**
@@ -66,14 +65,13 @@ public class EnemyBattleTest
     public void testCalculateEnemyMagic()
     {
         System.out.println("calculateEnemyMagic");
-        Player player = null;
-        Enemy enemy = null;
+        Player player = new Player("Test");
+        Enemy enemy = new Enemy();
         EnemyBattle instance = new EnemyBattle();
         int expResult = 0;
         int result = instance.calculateEnemyMagic(player, enemy);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(expResult, result, 30);
+        
     }
 
     /**
@@ -83,11 +81,10 @@ public class EnemyBattleTest
     public void testEnemyBattle()
     {
         System.out.println("enemyBattle");
-        GameGUI game = null;
+        GameGUI game = new GameGUI();
         EnemyBattle instance = new EnemyBattle();
         instance.enemyBattle(game);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     
 }

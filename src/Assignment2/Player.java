@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -19,7 +20,6 @@ import javax.swing.JOptionPane;
  */
 public class Player
 {
-
     private String name;
     private int hp;
     private int mp;
@@ -30,6 +30,8 @@ public class Player
     private int lvl;
     private int maxHp;
     private int maxMp;
+    private int score;
+    private Database db;
 
     public Player(String name)
     {
@@ -48,6 +50,7 @@ public class Player
         this.exp = 0;
         this.lvl = 1;
         this.maxHp = this.hp;
+        this.score = 0;
     }
 
     public void levelUp() 
@@ -79,6 +82,8 @@ public class Player
 
     public void loadPlayer(String name) throws InterruptedException
     {
+        
+        //ResultSet rs = Database.ge
         FileReader fr = null;
         File file = new File("./" + name + ".txt");
         

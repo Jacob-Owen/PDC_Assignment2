@@ -4,6 +4,7 @@
  */
 package Assignment2;
 
+import com.sun.jndi.ldap.Connection;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -50,7 +51,7 @@ public class GameGUI extends JPanel implements ActionListener
     public Enemy enemy;
     public PlayerBattle pBattle;
     public EnemyBattle eBattle;
-
+    
     public GameGUI()
     {
         initWindow();
@@ -536,8 +537,6 @@ public class GameGUI extends JPanel implements ActionListener
     {
         if (player.getHp() <= 0)
         {
-//            System.out.println("GAME OVER");
-//            System.out.println("Try again next time!");
             playerHP = new JLabel("HP: 0");
             JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
@@ -596,37 +595,11 @@ public class GameGUI extends JPanel implements ActionListener
 
     public static void main(String[] args)
     {
-        //Game game = new Game();
 
         GameGUI gui = new GameGUI();
-
+        Database db = new Database();
         gui.titleScreen();
 
-        //Title screen
-//        //Gives the option to play a new game or load a previous game
-//        game.gameStart();
-//
-//        //Starts the first loop of the battle
-//        do
-//        {
-//            //Creates a random new enemy to battle
-//            game.generateEnemy();
-//            game.run = false;
-//
-//            //Starts the battle loop
-//            while (game.enemy.getHp() > 0 && game.player.getHp() > 0 && game.run == false)
-//            {
-//                game.battleStart();
-//            }
-//            //Checks to see if the enemy is defeted
-//            if (game.enemy.getHp() <= 0)
-//            {
-//                game.battleEnd();
-//            }
-//        }
-//        //Checks to see if the player still has HP or if Quit has been selected.
-//        while (game.player.getHp() > 0 && game.quit == false);
-//        game.gameEnd();
     }
 
 }

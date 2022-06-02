@@ -9,6 +9,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,9 +18,10 @@ import java.sql.Statement;
  */
 public class Database
 {
-    private static final String USER_NAME = "pdc"; //your DB username
+    private static final String USER_NAME = "Jacob"; //your DB username
     private static final String PASSWORD = "pdc"; //your DB password
-    private static final String URL = "jdbc:derby://localhost:1527/Mydatabase";  //url of the DB host
+    private static final String URL = "jdbc:derby://localhost:1527/PDC_Assignment2;create=true";  //url of the DB host
+    private Statement statement;
 
     Connection conn;
 
@@ -91,5 +94,47 @@ public class Database
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+    public void checkTables(String tableName)
+    {
+        try {
+            this.statement = conn.createStatement();
+            //if()
+            this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, MAXMP INT, SCORE INT)");
+            this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
+           
+            //this.statement.addBatch("INSERT INTO BOOK VALUES (1, 'Slum Dog Millionaire', 'Fiction', 19.90)");
+            this.statement.executeBatch();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public int getStats(String stat, String table, String name) 
+    {
+        int val = 0;
+        ResultSet rs = null;
+        try 
+        {
+            rs = this.statement.executeQuery("SELECT *"
+                    + "FROM "+table
+                    + "WHERE NAME = '"+name+"'");
+        } 
+        catch (SQLException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+        
+        try
+        {
+            val =  ((Number) rs.getObject(1)).intValue();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return val;
+
     }
 }

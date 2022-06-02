@@ -93,19 +93,54 @@ public class Database
             {
                 this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, SCORE INT)");
             }
-           
+
             // Checks if "ENEMY" table is already there
             table = dbm.getTables(null, null, "ENEMY", null);
             if (!table.next())
             {
                 this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
             }
-            
+
             this.statement.executeBatch();
         }
         catch (SQLException ex)
         {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    public void createTestSave()
+    {
+        ResultSet rs = null;
+        try
+        {
+            this.statement = conn.createStatement();
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try
+        {
+            rs = this.statement.executeQuery("SELECT * FROM ENEMY WHERE NAME = 'TestSave'");
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try
+        {
+            if (!rs.next())
+            {
+                this.statement.addBatch("INSERT INTO ENEMY VALUES ('TestSave', 50 , 5 , 10 , 13, 0, 1, 50, 0)");
+
+            }
+
+        }
+        catch (SQLException ex)
+        {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

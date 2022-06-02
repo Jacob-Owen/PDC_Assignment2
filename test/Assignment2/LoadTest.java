@@ -63,9 +63,10 @@ public class LoadTest
     public void testLoadGameSuccess() throws Exception
     {
         System.out.println("loadGame");
-        String name = "Wow";
+        String name = "TestSave";
         Player p = new Player("");;
         Database db = new Database();
+        db.createTestSave();
         Load instance = new Load();
         boolean expResult = true;
         boolean result = instance.loadGame(name, p, db);

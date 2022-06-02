@@ -5,6 +5,7 @@
 package Assignment2;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Random;
@@ -48,10 +49,20 @@ public class Enemy
 
     public void writeEnemy(Database db) throws SQLException
     {
-        
+
         conn = db.getConnection();
+        ResultSet rs = null;
         this.statement = conn.createStatement();
-        this.statement.addBatch("INSERT INTO ENEMY VALUES ('" + this.name + "', " + this.hp + ", " + this.mp + ", " + this.atk + ", " + this.def + ", " + this.expGain + ")");
+        rs = this.statement.executeQuery("SELECT * FROM ENEMY WHERE NAME = '" + this.name + "'");
+        if (rs.next())
+        {
+            this.statement.addBatch("UPDATE ENEMY SET NAME = '" + this.name + "', HP = " + this.hp + ", MP = " + this.mp + ", ATTACK = " + this.atk + ", DEFENCE = " + this.def + ", EXPGAIN = " + this.expGain+" WHERE NAME = '" + this.name + "'");
+
+        }
+        else
+        {
+            this.statement.addBatch("INSERT INTO ENEMY VALUES ('" + this.name + "', " + this.hp + ", " + this.mp + ", " + this.atk + ", " + this.def + ", " + this.expGain + ")");
+        }
         this.statement.executeBatch();
 
     }

@@ -59,12 +59,13 @@ public class GameGUI extends JPanel implements ActionListener
         initWindow();
         initButton();
         initPanel();
-
-        window.setVisible(true);
+        
         pBattle = new PlayerBattle();
         eBattle = new EnemyBattle();
         db = new Database();
         db.checkTables();
+        
+        window.setVisible(true);
     }
 
     public void initWindow()
@@ -199,6 +200,43 @@ public class GameGUI extends JPanel implements ActionListener
         quitPanel.setBackground(Color.BLACK);
         quitPanel.setLayout(new GridBagLayout());
         quitPanel.add(quitLabel);
+        
+        playerName = new JLabel("");
+        playerName.setForeground(Color.ORANGE);
+        playerName.setFont(btnFont);
+
+        playerHP = new JLabel("HP: ");
+        playerHP.setForeground(Color.WHITE);
+        playerHP.setFont(btnFont);
+
+        playerMP = new JLabel("MP: ");
+        playerMP.setForeground(Color.WHITE);
+        playerMP.setFont(btnFont);
+
+        namePanel = new JPanel();
+        namePanel.setBounds(200, 10, 400, 50);
+        namePanel.setBackground(Color.BLACK);
+        namePanel.setLayout(new GridBagLayout());
+        namePanel.add(playerName);
+
+        hpPanel = new JPanel();
+        hpPanel.setBounds(30, 200, 100, 50);
+        hpPanel.setBackground(Color.DARK_GRAY);
+        hpPanel.add(playerHP);
+
+        mpPanel = new JPanel();
+        mpPanel.setBounds(650, 200, 100, 50);
+        mpPanel.setBackground(Color.DARK_GRAY);
+        mpPanel.add(playerMP);
+
+        textArea = new JTextArea(10, 10);
+        textArea.setText("");
+        textArea.setBounds(140, 100, 500, 270);
+        textArea.setBackground(Color.DARK_GRAY);
+        textArea.setForeground(Color.WHITE);
+
+        PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
+        System.setOut(ps);
 
         window.add(titlePanel);
 
@@ -411,43 +449,11 @@ public class GameGUI extends JPanel implements ActionListener
         saveNo.setVisible(false);
         next.setVisible(false);
 
-        playerName = new JLabel(player.getName());
-        playerName.setForeground(Color.ORANGE);
-        playerName.setFont(btnFont);
-
-        playerHP = new JLabel("HP: " + player.getHp());
-        playerHP.setForeground(Color.WHITE);
-        playerHP.setFont(btnFont);
-
-        playerMP = new JLabel("MP: " + player.getMp());
-        playerMP.setForeground(Color.WHITE);
-        playerMP.setFont(btnFont);
-
-        namePanel = new JPanel();
-        namePanel.setBounds(200, 10, 400, 50);
-        namePanel.setBackground(Color.BLACK);
-        namePanel.setLayout(new GridBagLayout());
-        namePanel.add(playerName);
-
-        hpPanel = new JPanel();
-        hpPanel.setBounds(30, 200, 100, 50);
-        hpPanel.setBackground(Color.DARK_GRAY);
-        hpPanel.add(playerHP);
-
-        mpPanel = new JPanel();
-        mpPanel.setBounds(650, 200, 100, 50);
-        mpPanel.setBackground(Color.DARK_GRAY);
-        mpPanel.add(playerMP);
-
-        textArea = new JTextArea(10, 10);
+        playerName.setText(player.getName());       
+        playerHP.setText("HP: " + player.getHp());       
+        playerMP.setText("MP: " + player.getMp());
         textArea.setText("");
-        textArea.setBounds(140, 100, 500, 270);
-        textArea.setBackground(Color.DARK_GRAY);
-        textArea.setForeground(Color.WHITE);
-
-        PrintStream ps = new PrintStream(new TextOutputGUI(textArea));
-        System.setOut(ps);
-
+        
         window.add(textArea);
         window.add(namePanel);
         window.add(hpPanel);
@@ -601,6 +607,7 @@ public class GameGUI extends JPanel implements ActionListener
             System.out.println("You have " + ((this.player.getLvl() * 100) - this.player.getExp()) + " EXP before next level up");
 
         }
+        player.setScore(player.getScore() + 1);
 
         //Generates a random event to happen.
         //RandomEvent event = new RandomEvent();

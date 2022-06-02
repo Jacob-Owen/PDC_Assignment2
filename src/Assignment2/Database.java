@@ -23,7 +23,7 @@ public class Database
 
     private static final String USER_NAME = "Jacob"; //your DB username
     private static final String PASSWORD = "pdc"; //your DB password
-    private static final String URL = "jdbc:derby:PDC_Assignment2:";  //url of the DB host
+    private static final String URL = "jdbc:derby:PDC_Assignment2;create=true";  //url of the DB host
     private Statement statement;
 
     private Connection conn;
@@ -127,19 +127,15 @@ public class Database
             DatabaseMetaData dbm = conn.getMetaData();
             // Checks if "PLAYER" table is already there
             ResultSet table = dbm.getTables(null, null, "PLAYER", null);
-            // Table exists
-            if (table.next())
-            {
-
-            }
-            // Table does not exist
-            else
+            // If the Table does't exist it makes a new one
+            if (!table.next())
             {
                 this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, SCORE INT)");
             }
+           
             // Checks if "ENEMY" table is already there
             table = dbm.getTables(null, null, "ENEMY", null);
-            if (table.next())
+            if (!table.next())
             {
                 this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
             }

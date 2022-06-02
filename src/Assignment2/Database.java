@@ -5,12 +5,14 @@
 package Assignment2;
 
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,35 +20,43 @@ import java.util.logging.Logger;
  */
 public class Database
 {
+
     private static final String USER_NAME = "Jacob"; //your DB username
     private static final String PASSWORD = "pdc"; //your DB password
-    private static final String URL = "jdbc:derby://localhost:1527/PDC_Assignment2;create=true";  //url of the DB host
+    private static final String URL = "jdbc:derby://localhost:1527/PDC_Assignment2";  //url of the DB host
     private Statement statement;
 
-    Connection conn;
+    private Connection conn;
 
-    public Database() {
+    public Database()
+    {
         establishConnection();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         Database database = new Database();
         System.out.println(database.getConnection());
+        //database.establishConnection();
+        database.checkTables();
+        //database.closeConnections();
     }
 
-    public Connection getConnection() {
+    public Connection getConnection()
+    {
         return this.conn;
     }
 
     //Establish connection
-    public void establishConnection() {
+    public void establishConnection()
+    {
         //Establish a connection to Database
-        if(conn == null)
+        if (conn == null)
         {
             try
             {
                 conn = DriverManager.getConnection(URL, USER_NAME, PASSWORD);
-                System.out.println(URL+" Connected");
+                System.out.println(URL + " Connected");
             }
             catch (SQLException ex)
             {
@@ -55,86 +65,95 @@ public class Database
         }
     }
 
-    public void closeConnections() {
-        if (conn != null) {
-            try {
+    public void closeConnections()
+    {
+        if (conn != null)
+        {
+            try
+            {
                 conn.close();
-            } catch (SQLException ex) {
+            }
+            catch (SQLException ex)
+            {
                 System.out.println(ex.getMessage());
             }
         }
     }
 
-    public ResultSet queryDB(String sql) {
+    public ResultSet queryDB(String sql)
+    {
 
         Connection connection = this.conn;
         Statement statement = null;
         ResultSet resultSet = null;
 
-        try {
+        try
+        {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
 
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             System.out.println(ex.getMessage());
         }
         return resultSet;
     }
 
-    public void updateDB(String sql) {
+    public void updateDB(String sql)
+    {
 
         Connection connection = this.conn;
         Statement statement = null;
         ResultSet resultSet = null;
 
-        try {
+        try
+        {
             statement = connection.createStatement();
             statement.executeUpdate(sql);
 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
-    public void checkTables(String tableName)
-    {
-        try {
-            this.statement = conn.createStatement();
-            //if()
-            this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, MAXMP INT, SCORE INT)");
-            this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
-           
-            //this.statement.addBatch("INSERT INTO BOOK VALUES (1, 'Slum Dog Millionaire', 'Fiction', 19.90)");
-            this.statement.executeBatch();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
-    public int getStats(String stat, String table, String name) 
-    {
-        int val = 0;
-        ResultSet rs = null;
-        try 
-        {
-            rs = this.statement.executeQuery("SELECT *"
-                    + "FROM "+table
-                    + "WHERE NAME = '"+name+"'");
-        } 
-        catch (SQLException ex) 
-        {
-            System.out.println(ex.getMessage());
-        }
-        
-        try
-        {
-            val =  ((Number) rs.getObject(1)).intValue();
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
-        return val;
-
     }
+
+    public void checkTables()
+    {
+        try
+        {
+            this.statement = conn.createStatement();
+            DatabaseMetaData dbm = conn.getMetaData();
+            // Checks if "PLAYER" table is already there
+            ResultSet table = dbm.getTables(null, null, "PLAYER", null);
+            // Table exists
+            if (table.next())
+            {
+
+            }
+            // Table does not exist
+            else
+            {
+                this.statement.addBatch("CREATE  TABLE PLAYER (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXP INT, LEVEL INT, MAXHP INT, MAXMP INT, SCORE INT)");
+            }
+            // Checks if "ENEMY" table is already there
+            table = dbm.getTables(null, null, "ENEMY", null);
+            if (table.next())
+            {
+
+            }
+            // Table does not exist
+            else
+            {
+                this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
+            }
+            this.statement.executeBatch();
+        }
+        catch (SQLException ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 }

@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -50,6 +51,7 @@ public class Player
         this.exp = 0;
         this.lvl = 1;
         this.maxHp = this.hp;
+        this.maxMp =  this.mp;
         this.score = 0;
     }
 
@@ -78,65 +80,6 @@ public class Player
         //Displays the players new level
         System.out.println("You are now level " + (this.lvl) + "!!\n");
         
-    }
-
-    public void loadPlayer(String name) throws InterruptedException
-    {
-        
-        //ResultSet rs = Database.ge
-        FileReader fr = null;
-        File file = new File("./" + name + ".txt");
-        
-        //Checks if the file exists to load
-        if (!file.exists())
-        {
-            //If the file isn't there it lets you know it doen't exist
-            JOptionPane.showMessageDialog(null, "Hero does not exist.\n Try again.", "Error", JOptionPane.WARNING_MESSAGE);
-            
-            //Takes you back to the new game/load screen
-            
-        }
-        else
-        {
-            try
-            {
-                //Loads the file in to read the data
-                fr = new FileReader("./" + name + ".txt");
-            }
-            catch (FileNotFoundException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-
-            BufferedReader br = new BufferedReader(fr);
-
-            try
-            {
-                //Reads all of the starts from the file and loads them onto the character
-                this.name = br.readLine();
-                this.hp = Integer.parseInt(br.readLine());
-                this.mp = Integer.parseInt(br.readLine());
-                this.atk = Integer.parseInt(br.readLine());
-                this.def = Integer.parseInt(br.readLine());
-                this.exp = Integer.parseInt(br.readLine());
-                this.lvl = Integer.parseInt(br.readLine());
-                JOptionPane.showMessageDialog(null, "Load Successful", "LOAD", JOptionPane.INFORMATION_MESSAGE);
-                
-            }
-            catch (IOException ex)
-            {
-                JOptionPane.showMessageDialog(null, "Load Failed", "ERROR", JOptionPane.WARNING_MESSAGE);
-                System.out.println(ex.getMessage());
-            }
-            try
-            {
-                br.close();
-            }
-            catch (IOException ex)
-            {
-                System.out.println(ex.getMessage());
-            }
-        }
     }
 
     public String getName()
@@ -207,5 +150,34 @@ public class Player
     public void setExp(int exp)
     {
         this.exp = exp;
+    }
+    public int getMaxHp()
+    {
+        return maxHp;
+    }
+
+    public int getMaxMp()
+    {
+        return maxMp;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
+
+    public void setMaxHp(int maxHp)
+    {
+        this.maxHp = maxHp;
+    }
+
+    public void setMaxMp(int maxMp)
+    {
+        this.maxMp = maxMp;
+    }
+
+    public void setScore(int score)
+    {
+        this.score = score;
     }
 }

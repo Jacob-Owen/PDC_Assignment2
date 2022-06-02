@@ -7,6 +7,12 @@ package Assignment2;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,50 +21,23 @@ import java.io.PrintWriter;
  */
 public class Save
 {
+    private Connection conn;
+    private Statement statement;
 
     public Save()
     {
       
     }
     
-    public void saveGame(Player player)
+    public void saveGame(Player player, Database db) throws SQLException
     {
-        FileOutputStream fs;
-        try
-        {
-            //Creates a new file to save to
-            fs = new FileOutputStream("./"+player.getName()+".txt");
-            PrintWriter pw = new PrintWriter(fs);
-            String output = "";
-            
-            //Writes all of the Players stats to a text string
-            output += player.getName();
-            output += "\n";
-            output += player.getHp();
-            output += "\n";
-            output += player.getMp();
-            output += "\n";
-            output += player.getAtk();
-            output += "\n";
-            output += player.getDef();
-            output += "\n";
-            output += player.getExp();
-            output += "\n";
-            output += player.getLvl();
-            
-            //Prints that text to a file
-            pw.print(output);
-            
-            //Confirms saving was sucessful
-            System.out.println("Save complete!");
-            
-            pw.close();
-        }
-        catch (FileNotFoundException ex)
-        {
-            //Displays if saving the file failed
-            System.out.println("Save Failed");
-            System.out.println(ex.getMessage());
-        }
+        
+        conn = db.getConnection();
+        
+        this.statement = conn.createStatement();
+        this.statement.addBatch("INSERT INTO PLAYER VALUES ('"+player.getName()+"', "+player.getHp()+", "+player.getMp()+", "+player.getAtk()+", "+player.getDef()+", "+player.getExp()+", "+player.getLvl()+", "+player.getMaxHp()+", "+player.getMaxMp()+", "+player.getScore()+")");
+        this.statement.executeBatch();
+        JOptionPane.showMessageDialog(null, "Save Successful", "SAVE", JOptionPane.INFORMATION_MESSAGE);
+          
     }
 }

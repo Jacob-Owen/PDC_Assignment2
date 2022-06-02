@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.SQLException;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,6 +52,8 @@ public class GameGUI extends JPanel implements ActionListener
     public Enemy enemy;
     public PlayerBattle pBattle;
     public EnemyBattle eBattle;
+    public Database db;
+    
     
     public GameGUI()
     {
@@ -61,6 +64,8 @@ public class GameGUI extends JPanel implements ActionListener
         window.setVisible(true);
         pBattle = new PlayerBattle();
         eBattle = new EnemyBattle();
+        db = new Database();
+        db.checkTables();
     }
 
     public void initWindow()
@@ -326,11 +331,12 @@ public class GameGUI extends JPanel implements ActionListener
             if (name != null)
             {
                 player = new Player("");
+                Load load = new Load();
                 try
                 {
-                    player.loadPlayer(name);
+                    load.loadGame(name, player, db);
                 }
-                catch (InterruptedException ex)
+                catch (SQLException ex)
                 {
                     Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -340,7 +346,14 @@ public class GameGUI extends JPanel implements ActionListener
         if (source == saveYes)
         {
             Save save = new Save(); //Saves the game
-            save.saveGame(this.player);
+            try
+            {
+                save.saveGame(this.player, this.db);
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(GameGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
             this.quitScreen();
         }
 
@@ -538,7 +551,7 @@ public class GameGUI extends JPanel implements ActionListener
         if (player.getHp() <= 0)
         {
             playerHP = new JLabel("HP: 0");
-            JOptionPane.showMessageDialog(window, "GAME OVER\n Try again next time!", "GAME OVER", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(window, "GAME OVER\nTry again next time!\n", "GAME OVER", JOptionPane.WARNING_MESSAGE);
             System.exit(0);
             return false;
         }
@@ -597,7 +610,7 @@ public class GameGUI extends JPanel implements ActionListener
     {
 
         GameGUI gui = new GameGUI();
-        Database db = new Database();
+        
         gui.titleScreen();
 
     }

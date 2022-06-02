@@ -23,7 +23,7 @@ public class Database
 
     private static final String USER_NAME = "Jacob"; //your DB username
     private static final String PASSWORD = "pdc"; //your DB password
-    private static final String URL = "jdbc:derby://localhost:1527/PDC_Assignment2";  //url of the DB host
+    private static final String URL = "jdbc:derby:PDC_Assignment2:";  //url of the DB host
     private Statement statement;
 
     private Connection conn;
@@ -141,13 +141,9 @@ public class Database
             table = dbm.getTables(null, null, "ENEMY", null);
             if (table.next())
             {
-
-            }
-            // Table does not exist
-            else
-            {
                 this.statement.addBatch("CREATE  TABLE ENEMY (NAME VARCHAR(50), HP  INT, MP INT, ATTACK INT, DEFENCE INT, EXPGAIN INT)");
             }
+            
             this.statement.executeBatch();
         }
         catch (SQLException ex)

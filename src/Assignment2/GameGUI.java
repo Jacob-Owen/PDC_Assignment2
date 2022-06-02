@@ -561,6 +561,7 @@ public class GameGUI extends JPanel implements ActionListener
         }
     }
 
+    
     public boolean checkEnemyHealth()
     {
         if (enemy.getHp() <= 0)

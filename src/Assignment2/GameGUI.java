@@ -64,6 +64,8 @@ public class GameGUI extends JPanel implements ActionListener
         eBattle = new EnemyBattle();
         db = new Database();
         db.checkTables();
+        player = new Player("");
+        enemy = new Enemy();
         
         window.setVisible(true);
     }

@@ -53,8 +53,8 @@ public class PlayerBattleTest
         Enemy enemy = new Enemy();
         PlayerBattle instance = new PlayerBattle();
         int result = instance.calculatePlayerAttack(player, enemy);
-        int expResult = 0;
-        assertEquals(expResult, 30);
+        int expResult = 10;
+        assertEquals(expResult, result, 30);
        
     }
 
@@ -69,7 +69,7 @@ public class PlayerBattleTest
         Enemy enemy = new Enemy();
         PlayerBattle instance = new PlayerBattle();
         int result = instance.calculatePlayerMagic(player, enemy);
-        int expResult = 0;
+        int expResult = 10;
         assertEquals(expResult, result, 70);
     }
 

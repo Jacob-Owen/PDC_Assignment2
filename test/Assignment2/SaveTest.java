@@ -52,8 +52,7 @@ public class SaveTest
         Player player = new Player("Wow");
         Database db = new Database();
         Save instance = new Save();
-        instance.saveGame(player, db);
-      
+        instance.saveGame(player, db);     
     }
     
 }

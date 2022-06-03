@@ -56,10 +56,14 @@ public class GameGUI extends JPanel implements ActionListener
 
     public GameGUI()
     {
+        //Creates the GUI window
         initWindow();
+        //Creates all of the Buttons
         initButton();
+        //Creates the pannels for the window 
         initPanel();
         
+        //Setting up variables 
         pBattle = new PlayerBattle();
         eBattle = new EnemyBattle();
         db = new Database();
@@ -67,11 +71,13 @@ public class GameGUI extends JPanel implements ActionListener
         player = new Player("");
         enemy = new Enemy();
         
+        //Making the window visiable
         window.setVisible(true);
     }
 
     public void initWindow()
     {
+        //Creating the main window
         window = new JFrame("Monster Slayer");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(800, 600);

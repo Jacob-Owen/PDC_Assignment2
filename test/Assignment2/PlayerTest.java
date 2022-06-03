@@ -64,8 +64,7 @@ public class PlayerTest
         System.out.println("levelUp");
         Player instance = new Player("Test");
         instance.levelUp();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        
     }
 
     /**

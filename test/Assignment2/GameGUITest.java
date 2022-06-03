@@ -51,9 +51,7 @@ public class GameGUITest
     {
         System.out.println("initWindow");
         GameGUI instance = new GameGUI();
-        instance.initWindow();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        instance.initWindow();       
     }
 
     /**
@@ -65,8 +63,6 @@ public class GameGUITest
         System.out.println("initButton");
         GameGUI instance = new GameGUI();
         instance.initButton();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -78,24 +74,8 @@ public class GameGUITest
         System.out.println("initPanel");
         GameGUI instance = new GameGUI();
         instance.initPanel();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of actionPerformed method, of class GameGUI.
-     */
-//    @Test
-//    public void testActionPerformed()
-//    {
-//        System.out.println("actionPerformed");
-//        
-//        GameGUI instance = new GameGUI();
-//        ActionEvent e = instance.;
-//        instance.actionPerformed(e);
-//        // TODO review the generated test code and remove the default call to fail.
-//        //fail("The test case is a prototype.");
-//    }
 
     /**
      * Test of titleScreen method, of class GameGUI.
@@ -106,8 +86,6 @@ public class GameGUITest
         System.out.println("titleScreen");
         GameGUI instance = new GameGUI();
         instance.titleScreen();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**

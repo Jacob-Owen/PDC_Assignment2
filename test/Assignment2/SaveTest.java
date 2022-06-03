@@ -49,7 +49,7 @@ public class SaveTest
     public void testSaveGame() throws Exception
     {
         System.out.println("saveGame");
-        Player player = new Player("Wow");
+        Player player = new Player("Test");
         Database db = new Database();
         Save instance = new Save();
         instance.saveGame(player, db);     

@@ -133,18 +133,6 @@ public class GameGUITest
     }
 
     /**
-     * Test of setBattleButtonVisible method, of class GameGUI.
-     */
-    @Test
-    public void testSetBattleButtonVisible()
-    {
-        System.out.println("setBattleButtonVisible");
-        boolean set = true;
-        GameGUI instance = new GameGUI();
-        instance.setBattleButtonVisible(set);
-    }
-
-    /**
      * Test of generateEnemy method, of class GameGUI.
      */
     @Test

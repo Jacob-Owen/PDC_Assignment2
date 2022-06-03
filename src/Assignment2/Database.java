@@ -33,15 +33,6 @@ public class Database
         establishConnection();
     }
 
-    public static void main(String[] args)
-    {
-        Database database = new Database();
-        System.out.println(database.getConnection());
-        //database.establishConnection();
-        database.checkTables();
-        //database.closeConnections();
-    }
-
     public Connection getConnection()
     {
         return this.conn;
@@ -109,6 +100,7 @@ public class Database
         }
     }
 
+    //Creates a test player to testing
     public void createTestSave()
     {
         ResultSet rs = null;
@@ -120,28 +112,26 @@ public class Database
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         try
         {
-            rs = this.statement.executeQuery("SELECT * FROM ENEMY WHERE NAME = 'TestSave'");
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try
-        {
-            if (!rs.next())
-            {
-                this.statement.addBatch("INSERT INTO ENEMY VALUES ('TestSave', 50 , 5 , 10 , 13, 0, 1, 50, 0)");
-
-            }
-
+            
+         this.statement.addBatch("INSERT INTO PLAYER VALUES ('TestSave', 50 , 5 , 10 , 13, 0, 1, 50, 0)");
+         this.statement.executeBatch();
+           
         }
         catch (SQLException ex)
         {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    //Deletes data in table for testing
+    public void deleteTables() throws SQLException
+    {
+        this.statement = conn.createStatement();
+        this.statement.executeUpdate("TRUNCATE TABLE PLAYER");
+        this.statement.executeUpdate("TRUNCATE TABLE ENEMY");
+    }
 }
+
+

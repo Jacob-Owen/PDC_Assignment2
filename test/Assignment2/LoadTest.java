@@ -64,7 +64,7 @@ public class LoadTest
     {
         System.out.println("loadGame");
         String name = "TestSave";
-        Player p = new Player("");;
+        Player p = new Player("TestSave");;
         Database db = new Database();
         db.createTestSave();
         Load instance = new Load();

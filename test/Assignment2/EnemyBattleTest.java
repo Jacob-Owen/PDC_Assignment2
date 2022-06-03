@@ -54,8 +54,7 @@ public class EnemyBattleTest
         EnemyBattle instance = new EnemyBattle();
         int expResult = 0;
         int result = instance.calculateEnemyAttack(player, enemy);
-        assertEquals(expResult, result, 30);
-        
+        assertEquals(expResult, result, 30); //Offset used due to random roll for calculating attack
     }
 
     /**
@@ -70,8 +69,7 @@ public class EnemyBattleTest
         EnemyBattle instance = new EnemyBattle();
         int expResult = 0;
         int result = instance.calculateEnemyMagic(player, enemy);
-        assertEquals(expResult, result, 30);
-        
+        assertEquals(expResult, result, 70); //Offset used due to random roll for calculating magic attack    
     }
 
     /**
@@ -83,8 +81,7 @@ public class EnemyBattleTest
         System.out.println("enemyBattle");
         GameGUI game = new GameGUI();
         EnemyBattle instance = new EnemyBattle();
-        instance.enemyBattle(game);
-        
+        instance.enemyBattle(game);       
     }
     
 }

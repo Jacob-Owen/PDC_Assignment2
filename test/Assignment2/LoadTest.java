@@ -17,26 +17,26 @@ import static org.junit.Assert.*;
  */
 public class LoadTest
 {
-    
+
     public LoadTest()
     {
     }
-    
+
     @BeforeClass
     public static void setUpClass()
     {
     }
-    
+
     @AfterClass
     public static void tearDownClass()
     {
     }
-    
+
     @Before
     public void setUp()
     {
     }
-    
+
     @After
     public void tearDown()
     {
@@ -56,9 +56,9 @@ public class LoadTest
         boolean expResult = false;
         boolean result = instance.loadGame(name, p, db);
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
     public void testLoadGameSuccess() throws Exception
     {
@@ -66,12 +66,11 @@ public class LoadTest
         String name = "TestSave";
         Player p = new Player("TestSave");;
         Database db = new Database();
-        db.createTestSave();
+        db.createTestSave(); //Creates the player in the database for testing
         Load instance = new Load();
         boolean expResult = true;
         boolean result = instance.loadGame(name, p, db);
         assertEquals(expResult, result);
-        
     }
-    
+
 }

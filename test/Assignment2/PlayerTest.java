@@ -52,7 +52,6 @@ public class PlayerTest
         String name = "Test";
         Player instance = new Player(name);
         instance.createPlayer(name);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -274,8 +273,6 @@ public class PlayerTest
         int expResult = 0;
         int result = instance.getScore();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
